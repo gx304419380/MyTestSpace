@@ -1,7 +1,7 @@
-% ´óÌÆÏîÄ¿´¢ÄÜÏîÄ¿-Çå½àÄÜÔ´»ùµØĞÂĞÍ´¢ÄÜÓÅ»¯Ñ¡ĞÍÓë¶¯Ì¬ÅäÖÃ
-% ´Ó25Äêµ×¹â·ü²¢Íø£¬26Äêµ×·çµç²¢Íø£¬×öÈ«ÉúÃüÖÜÆÚ·ÖÎö
-% ´Ó¸ººÉ¡¢Ô´²àºÍÉÌÒµÄ£Ê½Èı¸ö½Ç¶È£¬¶àÒòËØ·ÖÎö
-% µ¥²ãPSOËã·¨,´¢ÄÜ¹¦ÂÊĞŞÕıºóµ÷ÕûÈİÁ¿£¬
+% å¤§å”é¡¹ç›®å‚¨èƒ½é¡¹ç›®-æ¸…æ´èƒ½æºåŸºåœ°æ–°å‹å‚¨èƒ½ä¼˜åŒ–é€‰å‹ä¸åŠ¨æ€é…ç½®
+% ä»25å¹´åº•å…‰ä¼å¹¶ç½‘ï¼Œ26å¹´åº•é£ç”µå¹¶ç½‘ï¼Œåšå…¨ç”Ÿå‘½å‘¨æœŸåˆ†æ
+% ä»è´Ÿè·ã€æºä¾§å’Œå•†ä¸šæ¨¡å¼ä¸‰ä¸ªè§’åº¦ï¼Œå¤šå› ç´ åˆ†æ
+% å•å±‚PSOç®—æ³•,å‚¨èƒ½åŠŸç‡ä¿®æ­£åè°ƒæ•´å®¹é‡ï¼Œ
 % 2025.01.22
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all
@@ -9,154 +9,154 @@ close all
 clc
 
 tic;
-Font_size = 12;   %×ÖÌå´óĞ¡
+Font_size = 12;   %å­—ä½“å¤§å°
 format short;
 warning off
 set(0, 'defaultAxesFontName', 'Monospaced');
-hwait = waitbar(0,'Êı¾İÊäÈë£¬ÇëµÈ´ı>>>>>>>>');
-%% ÓÃ»§ÊäÈë
-n_sence     = 1;      % ·ÂÕæ³¡¾°Ñ­»·´ÎÊı£¬1Îªµ¥´Î·ÖÎö£¬N_sence=100Îª¶à³¡¾°·ÖÎö
-season      = 'ÏÄ';   % ÏÄ»ò¶¬¼¾µäĞÍÈÕ
-year        = 26      % yearÎª26¡¢27£¬26ÄêÖ»ÓĞ475MW¹â·ü£¬27Äê·ç¹â¹²925MW
+hwait = waitbar(0,'æ•°æ®è¾“å…¥ï¼Œè¯·ç­‰å¾…>>>>>>>>');
+%% ç”¨æˆ·è¾“å…¥
+n_sence     = 1;      % ä»¿çœŸåœºæ™¯å¾ªç¯æ¬¡æ•°ï¼Œ1ä¸ºå•æ¬¡åˆ†æï¼ŒN_sence=100ä¸ºå¤šåœºæ™¯åˆ†æ
+season      = 'å¤';   % å¤æˆ–å†¬å­£å…¸å‹æ—¥
+year        = 26      % yearä¸º26ã€27ï¼Œ26å¹´åªæœ‰475MWå…‰ä¼ï¼Œ27å¹´é£å…‰å…±925MW
 
-% ÒÔÏÂÎªÄ¬ÈÏÖµ£¬¿ÉĞŞ¸Ä
-Rate_Load   = 1.5;    %¸ººÉÔËĞĞÓë·ç¹â³öÁ¦±ÈÖµ
-Rate_Power  = 1.0;    %·ç¹â³öÁ¦±¶ÂÊ
-Rate_limt   = [0.95; 1]; %ĞÂÄÜÔ´ÏûÄÉÂÊÔ¼Êø£¬95%-100%
-Storage_max = 1500;  %×î´ó´¢ÄÜ¶î¶¨ÈİÁ¿£¬MWh
-Storage_min = 1300;  %×îĞ¡´¢ÄÜ¶î¶¨ÈİÁ¿£¬MWh
-Max_Iter    = 30;    %×î´óµü´ú´ÎÊı
-N_pop       = 100;   %ÖÖÈºÁ£×ÓÊıÁ¿
+% ä»¥ä¸‹ä¸ºé»˜è®¤å€¼ï¼Œå¯ä¿®æ”¹
+Rate_Load   = 1.5;    %è´Ÿè·è¿è¡Œä¸é£å…‰å‡ºåŠ›æ¯”å€¼
+Rate_Power  = 1.0;    %é£å…‰å‡ºåŠ›å€ç‡
+Rate_limt   = [0.95; 1]; %æ–°èƒ½æºæ¶ˆçº³ç‡çº¦æŸï¼Œ95%-100%
+Storage_max = 1500;  %æœ€å¤§å‚¨èƒ½é¢å®šå®¹é‡ï¼ŒMWh
+Storage_min = 1300;  %æœ€å°å‚¨èƒ½é¢å®šå®¹é‡ï¼ŒMWh
+Max_Iter    = 30;    %æœ€å¤§è¿­ä»£æ¬¡æ•°
+N_pop       = 100;   %ç§ç¾¤ç²’å­æ•°é‡
 %
 
 if n_sence == 1
-    Price_change = [0, 0, 0, 0, 0];   %±ê¼Ç¼Û¸ñ±ä»¯£¬0²»±ä£¬1±ä»¯,[0, 1, 1, 0, 0]
-    % ¼Û¸ñ±ä»¯·¶Î§±¶Êı£¬µÚÒ»ĞĞÉÏÏŞ£¬µÚ¶şĞĞÏÂÏŞ£¬ÓÃÓÚÉú³É¼Û¸ñµÄ²»È·¶¨·¶Î§
+    Price_change = [0, 0, 0, 0, 0];   %æ ‡è®°ä»·æ ¼å˜åŒ–ï¼Œ0ä¸å˜ï¼Œ1å˜åŒ–,[0, 1, 1, 0, 0]
+    % ä»·æ ¼å˜åŒ–èŒƒå›´å€æ•°ï¼Œç¬¬ä¸€è¡Œä¸Šé™ï¼Œç¬¬äºŒè¡Œä¸‹é™ï¼Œç”¨äºç”Ÿæˆä»·æ ¼çš„ä¸ç¡®å®šèŒƒå›´
     Price_range = [1, 1; 1.2049, 1; 1.1852, 0.8148; 1, 1; 1, 1]';  
-    Price_dist  = 1;   % ¼Û¸ñ·Ö²¼£¬1ÎªËæ»úÉú³É£¬2Îª¾ùÔÈ·Ö²¼
-    % ·ç¹â³öÁ¦²»È·¶¨ĞÔ£¬²ÎÊıÄ¬ÈÏÎª0.1Ê±£¬±íÊ¾³öÁ¦ÔÚ»ù×¼ÖµµÄ90%-110%·¶Î§
+    Price_dist  = 1;   % ä»·æ ¼åˆ†å¸ƒï¼Œ1ä¸ºéšæœºç”Ÿæˆï¼Œ2ä¸ºå‡åŒ€åˆ†å¸ƒ
+    % é£å…‰å‡ºåŠ›ä¸ç¡®å®šæ€§ï¼Œå‚æ•°é»˜è®¤ä¸º0.1æ—¶ï¼Œè¡¨ç¤ºå‡ºåŠ›åœ¨åŸºå‡†å€¼çš„90%-110%èŒƒå›´
     Uncertain_source = 0.0;
-    % ¸ººÉ²»È·¶¨ĞÔ£¬²ÎÊıÄ¬ÈÏÎª0.5Ê±£¬±íÊ¾¸ººÉÔÚ»ù×¼ÖµµÄ100%-200%·¶Î§
+    % è´Ÿè·ä¸ç¡®å®šæ€§ï¼Œå‚æ•°é»˜è®¤ä¸º0.5æ—¶ï¼Œè¡¨ç¤ºè´Ÿè·åœ¨åŸºå‡†å€¼çš„100%-200%èŒƒå›´
     Uncertain_load   = 0.0; 
 else
-    Price_change = [0, 1, 1, 0, 0];   %±ê¼Ç¼Û¸ñ±ä»¯£¬0²»±ä£¬1±ä»¯,[0, 1, 1, 0, 0]
-    % ¼Û¸ñ±ä»¯·¶Î§±¶Êı£¬µÚÒ»ĞĞÉÏÏŞ£¬µÚ¶şĞĞÏÂÏŞ£¬ÓÃÓÚÉú³É¼Û¸ñµÄ²»È·¶¨·¶Î§
+    Price_change = [0, 1, 1, 0, 0];   %æ ‡è®°ä»·æ ¼å˜åŒ–ï¼Œ0ä¸å˜ï¼Œ1å˜åŒ–,[0, 1, 1, 0, 0]
+    % ä»·æ ¼å˜åŒ–èŒƒå›´å€æ•°ï¼Œç¬¬ä¸€è¡Œä¸Šé™ï¼Œç¬¬äºŒè¡Œä¸‹é™ï¼Œç”¨äºç”Ÿæˆä»·æ ¼çš„ä¸ç¡®å®šèŒƒå›´
     Price_range = [1, 1; 1.2049, 1; 1.1852, 0.8148; 1, 1; 1, 1]';  
-    Price_dist  = 1;   % ¼Û¸ñ·Ö²¼£¬1ÎªËæ»úÉú³É£¬2Îª¾ùÔÈ·Ö²¼
-    % ·ç¹â³öÁ¦²»È·¶¨ĞÔ£¬²ÎÊıÄ¬ÈÏÎª0.1Ê±£¬±íÊ¾³öÁ¦ÔÚ»ù×¼ÖµµÄ90%-110%·¶Î§
-    Uncertain_source = 0.1;   % Ä¬ÈÏ0.1£¬ÓÃ»§¿ÉĞŞ¸Ä
-    % ¸ººÉ²»È·¶¨ĞÔ£¬²ÎÊıÄ¬ÈÏÎª0.5Ê±£¬±íÊ¾¸ººÉÔÚ»ù×¼ÖµµÄ100%-200%·¶Î§
-    Uncertain_load   = 0.5;   % Ä¬ÈÏ0.5£¬ÓÃ»§¿ÉĞŞ¸Ä
+    Price_dist  = 1;   % ä»·æ ¼åˆ†å¸ƒï¼Œ1ä¸ºéšæœºç”Ÿæˆï¼Œ2ä¸ºå‡åŒ€åˆ†å¸ƒ
+    % é£å…‰å‡ºåŠ›ä¸ç¡®å®šæ€§ï¼Œå‚æ•°é»˜è®¤ä¸º0.1æ—¶ï¼Œè¡¨ç¤ºå‡ºåŠ›åœ¨åŸºå‡†å€¼çš„90%-110%èŒƒå›´
+    Uncertain_source = 0.1;   % é»˜è®¤0.1ï¼Œç”¨æˆ·å¯ä¿®æ”¹
+    % è´Ÿè·ä¸ç¡®å®šæ€§ï¼Œå‚æ•°é»˜è®¤ä¸º0.5æ—¶ï¼Œè¡¨ç¤ºè´Ÿè·åœ¨åŸºå‡†å€¼çš„100%-200%èŒƒå›´
+    Uncertain_load   = 0.5;   % é»˜è®¤0.5ï¼Œç”¨æˆ·å¯ä¿®æ”¹
 end
 
-N_obj     = 1;      %ÓÅ»¯Ä¿±êÊı
-% Á£×ÓÎ¬¶È£¬Ç°24Î¬ÈÕÊ±Ğò¹¦ÂÊ£¬25-48·ç¹âÊµ¼Ê³öÁ¦£¬49Î¬´¢ÄÜÈİÁ¿
+N_obj     = 1;      %ä¼˜åŒ–ç›®æ ‡æ•°
+% ç²’å­ç»´åº¦ï¼Œå‰24ç»´æ—¥æ—¶åºåŠŸç‡ï¼Œ25-48é£å…‰å®é™…å‡ºåŠ›ï¼Œ49ç»´å‚¨èƒ½å®¹é‡
 if N_obj == 1
     dim = 49;
 else
     dim = 50;
-    x50_limt   = [10, 18];          %´¢ÄÜ½ÓÈëµÄ½ÚµãÏŞÖÆ
-    % µ¼ÈëÍø¼Ü½á¹¹£¬µçÁ¦³±Á÷
-    % µÚÒ»ÁĞ£º½ÚµãºÅ£¬µÚ¶şÁĞ£º¸ººÉÓĞ¹¦£¨kW£©£¬µÚÈıÁĞ£º¸ººÉÎŞ¹¦(kvar)
+    x50_limt   = [10, 18];          %å‚¨èƒ½æ¥å…¥çš„èŠ‚ç‚¹é™åˆ¶
+    % å¯¼å…¥ç½‘æ¶ç»“æ„ï¼Œç”µåŠ›æ½®æµ
+    % ç¬¬ä¸€åˆ—ï¼šèŠ‚ç‚¹å·ï¼Œç¬¬äºŒåˆ—ï¼šè´Ÿè·æœ‰åŠŸï¼ˆkWï¼‰ï¼Œç¬¬ä¸‰åˆ—ï¼šè´Ÿè·æ— åŠŸ(kvar)
     Bus    = struct2array(load('Bus_IEEE33.mat'));
-    % µÚ1ÁĞ´æÖ§Â·ºÅ£¬µÚ2ÁĞ´æÖ§Â·Ê×½Úµã£¬µÚ3ÁĞ´æÖ§Â·Î²½Úµã£¬µÚ4´æÖ§Â·µç×è£¬µÚ5ÁĞ´æÖ§Â·µç¿¹ £¨Å·Ä·£©
+    % ç¬¬1åˆ—å­˜æ”¯è·¯å·ï¼Œç¬¬2åˆ—å­˜æ”¯è·¯é¦–èŠ‚ç‚¹ï¼Œç¬¬3åˆ—å­˜æ”¯è·¯å°¾èŠ‚ç‚¹ï¼Œç¬¬4å­˜æ”¯è·¯ç”µé˜»ï¼Œç¬¬5åˆ—å­˜æ”¯è·¯ç”µæŠ— ï¼ˆæ¬§å§†ï¼‰
     Branch = struct2array(load('Branch_IEEE33.mat'));
 end
 
 %
-sell_price  = ones(1, 24) * 0.5806;   %µ¥Î»£º0.488 Ôª/kWh
-lease_price = ones(1, 24) * 108;     %ÈİÁ¿×âÁŞÊÕÒæµ¥¼Û£¬108 Ôª/kWh
+sell_price  = ones(1, 24) * 0.5806;   %å•ä½ï¼š0.488 å…ƒ/kWh
+lease_price = ones(1, 24) * 108;     %å®¹é‡ç§Ÿèµæ”¶ç›Šå•ä»·ï¼Œ108 å…ƒ/kWh
 
-% *********************·ç¹â³öÁ¦ÊäÈë¼°Æä²»È·¶¨ĞÔÊäÈë*********************** %
-% ·ç¹â×°»úÈİÁ¿Êı¾İÀ´Ô´£º¡¶´¢ÄÜÅäÖÃ·½°¸±¨¸æ_2024.10.21¡·
-Capacity_WT  = [0, 45];        %·çµç×°»úÈİÁ¿£¬45ÍòÇ§Íß£¬26Äêµ×²¢Íø
-Capacity_PV  = [47.5, 47.5];   %¹â·ü×°»úÈİÁ¿£¬47.5ÍòÇ§Íß£¬25Äêµ×²¢Íø
-if strcmpi(season, 'ÏÄ') == 1
-    Source_coef = xlsread('Data_Input.xlsx', '·ç¹âÏµÊı', 'A2:B25');   %ÏÄ¼¾³öÁ¦ÏµÊı
+% *********************é£å…‰å‡ºåŠ›è¾“å…¥åŠå…¶ä¸ç¡®å®šæ€§è¾“å…¥*********************** %
+% é£å…‰è£…æœºå®¹é‡æ•°æ®æ¥æºï¼šã€Šå‚¨èƒ½é…ç½®æ–¹æ¡ˆæŠ¥å‘Š_2024.10.21ã€‹
+Capacity_WT  = [0, 45];        %é£ç”µè£…æœºå®¹é‡ï¼Œ45ä¸‡åƒç“¦ï¼Œ26å¹´åº•å¹¶ç½‘
+Capacity_PV  = [47.5, 47.5];   %å…‰ä¼è£…æœºå®¹é‡ï¼Œ47.5ä¸‡åƒç“¦ï¼Œ25å¹´åº•å¹¶ç½‘
+if strcmpi(season, 'å¤') == 1
+    Source_coef = xlsread('Data_Input.xlsx', 'é£å…‰ç³»æ•°', 'A2:B25');   %å¤å­£å‡ºåŠ›ç³»æ•°
 else
-    Source_coef = xlsread('Data_Input.xlsx', '·ç¹âÏµÊı', 'C2:D25');   %¶¬¼¾³öÁ¦ÏµÊı
+    Source_coef = xlsread('Data_Input.xlsx', 'é£å…‰ç³»æ•°', 'C2:D25');   %å†¬å­£å‡ºåŠ›ç³»æ•°
 end
-% ³öÁ¦ÏµÊı¸ù¾İ¡¶ºÓ³ØµØÇø¹â·üÏîÄ¿15·ÖÖÓÖÓ³öÁ¦(³£¼ª¡¢Ê¢¾°¡¢À­²Å)¡·¼ÆËã
+% å‡ºåŠ›ç³»æ•°æ ¹æ®ã€Šæ²³æ± åœ°åŒºå…‰ä¼é¡¹ç›®15åˆ†é’Ÿé’Ÿå‡ºåŠ›(å¸¸å‰ã€ç››æ™¯ã€æ‹‰æ‰)ã€‹è®¡ç®—
 if year>24 && year<28
-    WT = 10000*Capacity_WT(year-25).*Source_coef(:,1)';   %·çµç³öÁ¦£¬µ¥Î»´ÓÍòÇ§Íß×ª³ÉkW
-    PV = 10000*Capacity_PV(year-25).*Source_coef(:,2)';   %¹â·ü³öÁ¦£¬µ¥Î»´ÓÍòÇ§Íß×ª³ÉkW
+    WT = 10000*Capacity_WT(year-25).*Source_coef(:,1)';   %é£ç”µå‡ºåŠ›ï¼Œå•ä½ä»ä¸‡åƒç“¦è½¬æˆkW
+    PV = 10000*Capacity_PV(year-25).*Source_coef(:,2)';   %å…‰ä¼å‡ºåŠ›ï¼Œå•ä½ä»ä¸‡åƒç“¦è½¬æˆkW
 end
-Renewable = PV + WT;                                      %ĞÂÄÜÔ´=¹â·ü+·çµç
-% ---------------------·ç¹â³öÁ¦ÊäÈë¼°Æä²»È·¶¨ĞÔ½áÊø----------------------- %
+Renewable = PV + WT;                                      %æ–°èƒ½æº=å…‰ä¼+é£ç”µ
+% ---------------------é£å…‰å‡ºåŠ›è¾“å…¥åŠå…¶ä¸ç¡®å®šæ€§ç»“æŸ----------------------- %
 
-% ***********************¸ººÉÊäÈë¼°Æä²»È·¶¨ĞÔÊäÈë************************* %
-% Êı¾İÀ´Ô´£º¡¶ºÓ³ØÄÏµ¤£¨Ìì¶ë£©¹¤ÒµÔ°Ô´ÍøºÉ´¢Ò»Ìå»¯ÏîÄ¿Ç°ÆÚ¸ººÉµ÷²é±¨¸æ£¨10ÔÂ·İ£© (11.11-y¸Äv3)¡·
-% ¸ù¾İ·ç¹â³öÁ¦¼ÆËã¸ººÉ£¬°´ÕÕ³öÁ¦µçÁ¿£º¸ººÉµçÁ¿=1£º1.5Îª»ù×¼¼ÆËã
-Load_access = ones(1, 1);   %¸ººÉ½ÓÈë,ÊıÁ¿8£¬1±íÊ¾½ÓÈë£¬0±íÊ¾²»½ÓÈë£¬
-Load_DR     = [0, 0];  %0-10%£¬ĞèÇóÏìÓ¦¼õ¸ººÉ±ÈÀı£¬ÏìÓ¦Ê±¼ä2Ğ¡Ê±
-Uncertainty = 'ÕıÌ¬';  %²»È·¶¨ĞÔ·Ö²¼£¬ÕıÌ¬·Ö²¼»ò¾ùÔÈ·Ö²¼
+% ***********************è´Ÿè·è¾“å…¥åŠå…¶ä¸ç¡®å®šæ€§è¾“å…¥************************* %
+% æ•°æ®æ¥æºï¼šã€Šæ²³æ± å—ä¸¹ï¼ˆå¤©å³¨ï¼‰å·¥ä¸šå›­æºç½‘è·å‚¨ä¸€ä½“åŒ–é¡¹ç›®å‰æœŸè´Ÿè·è°ƒæŸ¥æŠ¥å‘Šï¼ˆ10æœˆä»½ï¼‰ (11.11-yæ”¹v3)ã€‹
+% æ ¹æ®é£å…‰å‡ºåŠ›è®¡ç®—è´Ÿè·ï¼ŒæŒ‰ç…§å‡ºåŠ›ç”µé‡ï¼šè´Ÿè·ç”µé‡=1ï¼š1.5ä¸ºåŸºå‡†è®¡ç®—
+Load_access = ones(1, 1);   %è´Ÿè·æ¥å…¥,æ•°é‡8ï¼Œ1è¡¨ç¤ºæ¥å…¥ï¼Œ0è¡¨ç¤ºä¸æ¥å…¥ï¼Œ
+Load_DR     = [0, 0];  %0-10%ï¼Œéœ€æ±‚å“åº”å‡è´Ÿè·æ¯”ä¾‹ï¼Œå“åº”æ—¶é—´2å°æ—¶
+Uncertainty = 'æ­£æ€';  %ä¸ç¡®å®šæ€§åˆ†å¸ƒï¼Œæ­£æ€åˆ†å¸ƒæˆ–å‡åŒ€åˆ†å¸ƒ
 
 if length(Load_access) == 1
-%     Load_Max  = xlsread('Data_Input.xlsx', 'ËùÓĞ¸ººÉ', 'B3:C5')./0.85;    %×î´ó¸ººÉ
-    %¸ù¾İ³öÁ¦ºÍ¸ººÉÅä±È¼ÆËã¸ººÉ
-    Load_Coef = xlsread('Data_Input.xlsx', 'ËùÓĞ¸ººÉ', 'B7:C30');   %¸ººÉÏµÊı
-    if strcmpi(season, 'ÏÄ') == 1
-        Load_coef = Load_Coef(:, 2:2:end);     %ÏÄ¼¾¸ººÉÏµÊı
+%     Load_Max  = xlsread('Data_Input.xlsx', 'æ‰€æœ‰è´Ÿè·', 'B3:C5')./0.85;    %æœ€å¤§è´Ÿè·
+    %æ ¹æ®å‡ºåŠ›å’Œè´Ÿè·é…æ¯”è®¡ç®—è´Ÿè·
+    Load_Coef = xlsread('Data_Input.xlsx', 'æ‰€æœ‰è´Ÿè·', 'B7:C30');   %è´Ÿè·ç³»æ•°
+    if strcmpi(season, 'å¤') == 1
+        Load_coef = Load_Coef(:, 2:2:end);     %å¤å­£è´Ÿè·ç³»æ•°
         Load_max  = ones(2, 1) .* sum(Renewable) / sum(Load_coef) /10000 /0.85;
     else
-        Load_coef = Load_Coef(:, 1:2:end-1);   %¶¬¼¾¸ººÉÏµÊı
+        Load_coef = Load_Coef(:, 1:2:end-1);   %å†¬å­£è´Ÿè·ç³»æ•°
         Load_max  = ones(2, 1) .* sum(Renewable) / sum(Load_coef) /10000 /0.85;
     end   
 else
-    Load_max  = xlsread('Data_Input.xlsx', '¸ººÉ', 'B4:Q5');    %×î´ó¸ººÉ
-    Load_Coef = xlsread('Data_Input.xlsx', '¸ººÉ', 'B7:Q30');   %¸ººÉÏµÊı
-    if strcmpi(season, 'ÏÄ') == 1
-        Load_max  = Load_max(:, 2:2:end);      %ÏÄ¼¾×î´ó¸ººÉ
-        Load_coef = Load_Coef(:, 2:2:end);     %ÏÄ¼¾¸ººÉÏµÊı
+    Load_max  = xlsread('Data_Input.xlsx', 'è´Ÿè·', 'B4:Q5');    %æœ€å¤§è´Ÿè·
+    Load_Coef = xlsread('Data_Input.xlsx', 'è´Ÿè·', 'B7:Q30');   %è´Ÿè·ç³»æ•°
+    if strcmpi(season, 'å¤') == 1
+        Load_max  = Load_max(:, 2:2:end);      %å¤å­£æœ€å¤§è´Ÿè·
+        Load_coef = Load_Coef(:, 2:2:end);     %å¤å­£è´Ÿè·ç³»æ•°
     else
-        Load_max  = Load_max(:, 1:2:end-1);    %¶¬¼¾×î´ó¸ººÉ
-        Load_coef = Load_Coef(:, 1:2:end-1);   %¶¬¼¾¸ººÉÏµÊı
+        Load_max  = Load_max(:, 1:2:end-1);    %å†¬å­£æœ€å¤§è´Ÿè·
+        Load_coef = Load_Coef(:, 1:2:end-1);   %å†¬å­£è´Ÿè·ç³»æ•°
     end
 end
 Load_Max  = sum(Load_max, 2);
-Load_plan = sum(Load_access.*Load_max, 2).*0.85;   %25ÄêÒÔºóµÄ¸ººÉ¹æ»®Öµ.0.85ÎªÍ¬Ê±ÂÊ
-% Load_growth = mean([Load_plan(2)/Load_plan(1); Load_plan(3)/Load_plan(2)]);   %¸ººÉÔö³¤ÂÊ
-Load_growth = Load_plan(2)/Load_plan(1);   %¸ººÉÔö³¤ÂÊ
+Load_plan = sum(Load_access.*Load_max, 2).*0.85;   %25å¹´ä»¥åçš„è´Ÿè·è§„åˆ’å€¼.0.85ä¸ºåŒæ—¶ç‡
+% Load_growth = mean([Load_plan(2)/Load_plan(1); Load_plan(3)/Load_plan(2)]);   %è´Ÿè·å¢é•¿ç‡
+Load_growth = Load_plan(2)/Load_plan(1);   %è´Ÿè·å¢é•¿ç‡
 if year>24 && year<28
     P_load = 10000*sum(Load_access.* Load_max(year-25, :).*Load_coef, 2)'.*0.85;
 else if year>27
-        growth = Load_plan(end)*(Load_growth^(year-27));   %¸ººÉÔö³¤
+        growth = Load_plan(end)*(Load_growth^(year-27));   %è´Ÿè·å¢é•¿
         P_load = 10000*sum(Load_access.* Load_max(end, :).*Load_coef, 2)'.*0.85*growth;
     else
-        disp('´íÎó£ºyearÊäÈëÓĞÎó£¬Ğè´óÓÚ24 ');   %µ¥Î»´ÓÍòÇ§Íß×ª³ÉkW
+        disp('é”™è¯¯ï¼šyearè¾“å…¥æœ‰è¯¯ï¼Œéœ€å¤§äº24 ');   %å•ä½ä»ä¸‡åƒç“¦è½¬æˆkW
         return
     end
 end
 
 P_load        = P_load * Rate_Load;   %
-Load_rate_cal = sum(P_load) / sum(Renewable)
+Load_rate_cal = sum(P_load) / sum(Renewable);
 WT = WT .* Rate_Power;
 PV = PV .* Rate_Power;
-Renewable = Renewable .* Rate_Power;                       %·ç¹â³öÁ¦±¶ÂÊ
-% -----------------------¸ººÉÊäÈë¼°Æä²»È·¶¨ĞÔ½áÊø------------------------- %
+Renewable = Renewable .* Rate_Power;                       %é£å…‰å‡ºåŠ›å€ç‡
+% -----------------------è´Ÿè·è¾“å…¥åŠå…¶ä¸ç¡®å®šæ€§ç»“æŸ------------------------- %
 
-SOC_0       = 0.3;   %´¢ÄÜÏµÍ³³õÊ¼SOC
-SOC_limt    = [0.1; 1];     %SOCÔ¼Êø£¬10%-100%
+SOC_0       = 0.3;   %å‚¨èƒ½ç³»ç»Ÿåˆå§‹SOC
+SOC_limt    = [0.1; 1];     %SOCçº¦æŸï¼Œ10%-100%
 
-%% ÈİÁ¿ÓÅ»¯³ÌĞòÊäÈë²ÎÊı
-data_price  = xlsread('Data_Input.xlsx', 'Price');    %¼Û¸ñ
-buy_price   = data_price(:,1)';   %µ¥Î»£ºÔª/kWh
-dr_price    = data_price(:,4)';   %ĞèÇóÏìÓ¦¼Û¸ñ£¬2 Ôª/kWh
-model_price = 0;                  %Æú·çÆú¹â³äµç¼Û¸ñ£¬Ôª/kWh
+%% å®¹é‡ä¼˜åŒ–ç¨‹åºè¾“å…¥å‚æ•°
+data_price  = xlsread('Data_Input.xlsx', 'Price');    %ä»·æ ¼
+buy_price   = data_price(:,1)';   %å•ä½ï¼šå…ƒ/kWh
+dr_price    = data_price(:,4)';   %éœ€æ±‚å“åº”ä»·æ ¼ï¼Œ2 å…ƒ/kWh
+model_price = 0;                  %å¼ƒé£å¼ƒå…‰å……ç”µä»·æ ¼ï¼Œå…ƒ/kWh
 Price       = [buy_price; sell_price; lease_price; dr_price; model_price*ones(1,24)];
 
-%% ¿¼ÂÇ¸ÅÂÊÒòËØµÄ´¢ÄÜÅäÖÃÓÅ»¯,Ê¤³¡Ô´ºÉ²»È·¶¨·ÂÕæ³¡¾°
-% ¸ù¾İ3Î÷¸ñÂêÔ­Ôò£¬Êı¾İ·Ö²¼ÔÚ-+3sigma·¶Î§ÄÚµÄ¸ÅÂÊÎª99.73%
-% Òò´Ë¸ù¾İ²»È·¶¨·¶Î§¼ÆËãºóĞøÊı¾İÍ³¼Æ·Ö²¼µÄ±ê×¼²î
+%% è€ƒè™‘æ¦‚ç‡å› ç´ çš„å‚¨èƒ½é…ç½®ä¼˜åŒ–,èƒœåœºæºè·ä¸ç¡®å®šä»¿çœŸåœºæ™¯
+% æ ¹æ®3è¥¿æ ¼ç›åŸåˆ™ï¼Œæ•°æ®åˆ†å¸ƒåœ¨-+3sigmaèŒƒå›´å†…çš„æ¦‚ç‡ä¸º99.73%
+% å› æ­¤æ ¹æ®ä¸ç¡®å®šèŒƒå›´è®¡ç®—åç»­æ•°æ®ç»Ÿè®¡åˆ†å¸ƒçš„æ ‡å‡†å·®
 
-N_s    = 1000*ceil(n_sence/100);   %Éú³É³¡¾°Êı
-N_sence = 100*ceil(n_sence/100);   %Ëõ¼õ³¡¾°Êı£¬Ëõ¼õÖÁ100¸ö
-% LHSÉú³ÉÔ´ºÉ²»È·¶¨ĞÔµÄ·ÂÕæ³¡¾°
-Load_all = [];   %1000*24£¬ÈÕ¸ººÉ·ÂÕæ³¡¾°
-EnWT_all = [];   %1000*24£¬ÈÕ·çµç³öÁ¦·ÂÕæ³¡¾°
-EnPV_all = [];   %1000*24£¬ÈÕ¹â·ü³öÁ¦·ÂÕæ³¡¾°
-Ener_all = [];   %1000*24£¬ÈÕ·ç¹â³öÁ¦·ÂÕæ³¡¾°
-if strcmpi(Uncertainty, 'ÕıÌ¬') == 1
+N_s    = 1000*ceil(n_sence/100);   %ç”Ÿæˆåœºæ™¯æ•°
+N_sence = 100*ceil(n_sence/100);   %ç¼©å‡åœºæ™¯æ•°ï¼Œç¼©å‡è‡³100ä¸ª
+% LHSç”Ÿæˆæºè·ä¸ç¡®å®šæ€§çš„ä»¿çœŸåœºæ™¯
+Load_all = [];   %1000*24ï¼Œæ—¥è´Ÿè·ä»¿çœŸåœºæ™¯
+EnWT_all = [];   %1000*24ï¼Œæ—¥é£ç”µå‡ºåŠ›ä»¿çœŸåœºæ™¯
+EnPV_all = [];   %1000*24ï¼Œæ—¥å…‰ä¼å‡ºåŠ›ä»¿çœŸåœºæ™¯
+Ener_all = [];   %1000*24ï¼Œæ—¥é£å…‰å‡ºåŠ›ä»¿çœŸåœºæ™¯
+if strcmpi(Uncertainty, 'æ­£æ€') == 1
     for t = 1:24
         mu_l(t)     = P_load(t)*1;
         sigma_l(t)  = P_load(t)*Uncertain_load/3;
@@ -206,11 +206,11 @@ else
         Ener_all(:,t) = sort(Ener_temp, 'descend');            
     end
 end
-% ²ÉÓÃÏÂ²ÉÑù¼õÉÙ³¡¾°Êı£¬´Ó1000Ëõ¼õµ½100
-Load_All = [];   %100*24£¬Ã¿ĞĞÎªÈÕ¸ººÉÊ±¼äĞòÁĞ
-EnWT_All = [];   %100*24£¬Ã¿ĞĞÎªÈÕ·çµç³öÁ¦Ê±¼äĞòÁĞ
-EnPV_All = [];   %100*24£¬Ã¿ĞĞÎªÈÕ¹â·ü³öÁ¦Ê±¼äĞòÁĞ
-Ener_All = [];   %100*24£¬Ã¿ĞĞÎªÈÕ³öÁ¦Ê±¼äĞòÁĞ
+% é‡‡ç”¨ä¸‹é‡‡æ ·å‡å°‘åœºæ™¯æ•°ï¼Œä»1000ç¼©å‡åˆ°100
+Load_All = [];   %100*24ï¼Œæ¯è¡Œä¸ºæ—¥è´Ÿè·æ—¶é—´åºåˆ—
+EnWT_All = [];   %100*24ï¼Œæ¯è¡Œä¸ºæ—¥é£ç”µå‡ºåŠ›æ—¶é—´åºåˆ—
+EnPV_All = [];   %100*24ï¼Œæ¯è¡Œä¸ºæ—¥å…‰ä¼å‡ºåŠ›æ—¶é—´åºåˆ—
+Ener_All = [];   %100*24ï¼Œæ¯è¡Œä¸ºæ—¥å‡ºåŠ›æ—¶é—´åºåˆ—
 for i = 1:N_sence
     if i <= (N_sence/2)
         po = (i-1)*10 + ceil(i*10/N_sence) + 1;
@@ -240,15 +240,15 @@ set(gca,'FontName','Times New Roman','FontSize',12)
 xlim([0, 24])
 close figure 102
 
-%% PSOËã·¨²ÎÊı
-% Á£×ÓÎ¬¶È£¬Ç°24Î¬ÈÕÊ±Ğò¹¦ÂÊ£¬25-48·ç¹âÊµ¼Ê³öÁ¦£¬49Î¬´¢ÄÜÈİÁ¿
-% ´Ë´¦¹¦ÂÊÎª´¢ÄÜ·Å³öµÄ¹¦ÂÊ£¨+£©£¬ºÍ¸ø´¢ÄÜ³äµçµÄ¹¦ÂÊ£¨-£©
-% ´¢ÄÜµç³ØÄÚµÄµçÁ¿±ä»¯£¬·ÅµçÎª¹¦ÂÊ*1/0.93£¨+£©£¬³äµçÎª¹¦ÂÊ*1*0.93£¨-£©
+%% PSOç®—æ³•å‚æ•°
+% ç²’å­ç»´åº¦ï¼Œå‰24ç»´æ—¥æ—¶åºåŠŸç‡ï¼Œ25-48é£å…‰å®é™…å‡ºåŠ›ï¼Œ49ç»´å‚¨èƒ½å®¹é‡
+% æ­¤å¤„åŠŸç‡ä¸ºå‚¨èƒ½æ”¾å‡ºçš„åŠŸç‡ï¼ˆ+ï¼‰ï¼Œå’Œç»™å‚¨èƒ½å……ç”µçš„åŠŸç‡ï¼ˆ-ï¼‰
+% å‚¨èƒ½ç”µæ± å†…çš„ç”µé‡å˜åŒ–ï¼Œæ”¾ç”µä¸ºåŠŸç‡*1/0.93ï¼ˆ+ï¼‰ï¼Œå……ç”µä¸ºåŠŸç‡*1*0.93ï¼ˆ-ï¼‰
 
-w_max      = 0.9;   %×î´ó¹ßĞÔÏµÊı
-w_min      = 0.4;   %×îĞ¡¹ßĞÔÏµÊı
-v_max      = 20000*ones(1,dim);     %ËÙ¶ÈÉÏ½ç
-v_max(1, 1:24) = Storage_min*0.1*1000*ones(1,24);     %ËÙ¶ÈÉÏ½ç
+w_max      = 0.9;   %æœ€å¤§æƒ¯æ€§ç³»æ•°
+w_min      = 0.4;   %æœ€å°æƒ¯æ€§ç³»æ•°
+v_max      = 20000*ones(1,dim);     %é€Ÿåº¦ä¸Šç•Œ
+v_max(1, 1:24) = Storage_min*0.1*1000*ones(1,24);     %é€Ÿåº¦ä¸Šç•Œ
 v_max(1, 25:48) = max(Renewable)*0.1*ones(1,24);
 v_max(49)  = Storage_min*0.5*1000;
 if N_obj == 2
@@ -256,20 +256,20 @@ if N_obj == 2
 end
 v_min      = -v_max;
 
-%% ¿¼ÂÇ¸ÅÂÊÒòËØµÄ´¢ÄÜÅäÖÃÓÅ»¯£¬¼ÆËãÃ¿¸ö³¡¾°ÏÂµÄ×îÓÅ´¢ÄÜ£»
-%  È¡95·ÖÎ»ÊıµÄ½á¹û£¬ÎªÒÔ95%µÄÖÃĞÅ¶È±£Ö¤ÓÅ»¯½á¹ûÄÜ¸²¸ÇÔ´ºÉµÄ²»È·¶¨ĞÔ
+%% è€ƒè™‘æ¦‚ç‡å› ç´ çš„å‚¨èƒ½é…ç½®ä¼˜åŒ–ï¼Œè®¡ç®—æ¯ä¸ªåœºæ™¯ä¸‹çš„æœ€ä¼˜å‚¨èƒ½ï¼›
+%  å–95åˆ†ä½æ•°çš„ç»“æœï¼Œä¸ºä»¥95%çš„ç½®ä¿¡åº¦ä¿è¯ä¼˜åŒ–ç»“æœèƒ½è¦†ç›–æºè·çš„ä¸ç¡®å®šæ€§
 Result_All = {};
 Grid_All   = {};
 Result_Opt = [];
 Grid_Opt   = [];
 Fitness    = [];
 
-Storage_max = Storage_max*1000;   %µ¥Î»´ÓMWh×ªµ½kWh
-Storage_min = Storage_min*1000;   %µ¥Î»´ÓMWh×ªµ½kWh
+Storage_max = Storage_max*1000;   %å•ä½ä»MWhè½¬åˆ°kWh
+Storage_min = Storage_min*1000;   %å•ä½ä»MWhè½¬åˆ°kWh
 for ns = 1:n_sence   % ns = 1:n_sence
-    renewable_ns = Ener_All(ns, :);   %µ±Ç°³¡¾°·ç¹â³öÁ¦
-    pload_ns     = Load_All(ns, :);   %µ±Ç°³¡¾°¸ººÉ
-    Price_ns     = Price;   %¸ù¾İ¼Û¸ñÊÇ·ñ²¨¶¯Éè¶¨£¬Éú³Éµ±Ç°³¡¾°¼Û¸ñ
+    renewable_ns = Ener_All(ns, :);   %å½“å‰åœºæ™¯é£å…‰å‡ºåŠ›
+    pload_ns     = Load_All(ns, :);   %å½“å‰åœºæ™¯è´Ÿè·
+    Price_ns     = Price;   %æ ¹æ®ä»·æ ¼æ˜¯å¦æ³¢åŠ¨è®¾å®šï¼Œç”Ÿæˆå½“å‰åœºæ™¯ä»·æ ¼
     for k = 1:length(Price_change)
         if Price_change(k) == 1
             if Price_dist == 1
@@ -290,32 +290,26 @@ for ns = 1:n_sence   % ns = 1:n_sence
         Load_DR_ns = DR_NS(ns);
     end
 
-   %% PSOÑ­»·
-%     Result = [];   %1-24ĞĞÎª×îÓÅ¹¦ÂÊÇúÏß£¬25-48ĞĞÎªÊµ¼Ê·ç¹â³öÁ¦£¬49ĞĞÎªÈİÁ¿
-%     Grid   = [];   %
-    
-    for i=1:24
+    for i = 1:24
         if sell_price(i) > buy_price(i)
-            X_upper(i) = 0 ;           %Ç§Íß£¬³ä·Åµç²ÎÊı0.5C£¬·ÅµçÎª(+)
-            X_lower(i) = -Storage_min/2;   %Ç§Íß£¬³ä·Åµç²ÎÊı0.5C£¬³äµçÎª(-)
+            X_upper(i) = 0 ;           %åƒç“¦ï¼Œå……æ”¾ç”µå‚æ•°0.5Cï¼Œæ”¾ç”µä¸º(+)
+            X_lower(i) = -Storage_min/2;   %åƒç“¦ï¼Œå……æ”¾ç”µå‚æ•°0.5Cï¼Œå……ç”µä¸º(-)
         else
-            X_upper(i) = Storage_min/2 ;   %Ç§Íß£¬³ä·Åµç²ÎÊı0.5C£¬·ÅµçÎª(+)
-            X_lower(i) = -Storage_min/2;   %Ç§Íß£¬³ä·Åµç²ÎÊı0.5C£¬³äµçÎª(-)      
+            X_upper(i) = Storage_min/2 ;   %åƒç“¦ï¼Œå……æ”¾ç”µå‚æ•°0.5Cï¼Œæ”¾ç”µä¸º(+)
+            X_lower(i) = -Storage_min/2;   %åƒç“¦ï¼Œå……æ”¾ç”µå‚æ•°0.5Cï¼Œå……ç”µä¸º(-)      
         end
     end    
     for i = 25:48
         X_upper(i) = renewable_ns(i-24);
-%         X_lower(i) = min(Rate_limt(1)*renewable_ns(i-24), pload_ns(i-24));
         if renewable_ns(i-24) <= pload_ns(i-24)
             X_lower(i) = renewable_ns(i-24);
         else
-%             X_lower(i) = min(Rate_limt(1)*renewable_ns(i-24), pload_ns(i-24));
             X_lower(i) = Rate_limt(1)*renewable_ns(i-24);
         end
     end
     load_proportion = sum(pload_ns) / sum(P_load);
     if load_proportion < 0.7
-        pop = N_pop*1.5;    %¸ººÉ
+        pop = N_pop*1.5;    %è´Ÿè·
     else
         pop = N_pop;
     end
@@ -325,73 +319,72 @@ for ns = 1:n_sence   % ns = 1:n_sence
         X_upper(50) = x50_limt(2);
         X_lower(50) = x50_limt(1); 
     end
-    
 
-    
-    X = initialization(pop, X_upper, X_lower, dim);   %³õÊ¼»¯ÖÖÈºÎ»ÖÃ
-    X(:, 49) = round(X(:, 49)/10000)*10000;           %ÈİÁ¿£¬×îĞ¡³ß¶È10MW
+    X = initialization(pop, X_upper, X_lower, dim);   %åˆå§‹åŒ–ç§ç¾¤ä½ç½®
+    X(:, 49) = round(X(:, 49)/10000)*10000;           %å®¹é‡ï¼Œæœ€å°å°ºåº¦10MW
     if N_obj == 2
-        X(:, 50) = round(X(:, 50));                   %Î»ÖÃ
+        X(:, 50) = round(X(:, 50));                   %ä½ç½®
     end
-    V = initialization(pop, v_max, v_min, dim);       %³õÊ¼»¯ÖÖÈºËÙ¶È
-%     Plim = pload_ns - X(i,25:48);   %´¢ÄÜ·ÅµçÏŞÖÆ£¬±ÜÃâÏòµçÍø·µËÍµç
+    V = initialization(pop, v_max, v_min, dim);       %åˆå§‹åŒ–ç§ç¾¤é€Ÿåº¦
+%     Plim = pload_ns - X(i,25:48);   %å‚¨èƒ½æ”¾ç”µé™åˆ¶ï¼Œé¿å…å‘ç”µç½‘è¿”é€ç”µ
     for i = 1:pop
-        Plim = pload_ns - X(i,25:48);   %´¢ÄÜ·ÅµçÏŞÖÆ£¬±ÜÃâÏòµçÍø·µËÍµç
+        Plim = pload_ns - X(i,25:48);   %å‚¨èƒ½æ”¾ç”µé™åˆ¶ï¼Œé¿å…å‘ç”µç½‘è¿”é€ç”µ
         X(i,:) = ConstraintCheck(X(i,:), X(i, 49), SOC_limt, SOC_0, Plim);
     end
 
     fx = zeros(N_obj, pop);
-    % ¼ÆËãÁ£×ÓÄ¿±êº¯Êı1£¬´¢ÄÜ¾­¼ÃĞÔ£¬È¡×î´ó
     for i = 1:pop
-        Storage = X(i, 49);
-        fx(1, i) = fobj(X(i,:), X(i, 49), pload_ns, Price_ns, renewable_ns);   %¼ÆËãÊÊÓ¦¶ÈÖµ
-    end     
-    % ¼ÆËãÁ£×ÓÄ¿±êº¯Êı2£¬½ÚµãµçÑ¹²¨¶¯µ¹Êı£¬È¡×î´ó
-    if N_obj == 2
-        V_bus = [];   % 24ÁĞ
-        for k = 1:24
-            P_new = [EnWT_All(ns, k), EnPV_All(ns, k)];
-            Location_Storage = X(i, 50);   %´¢ÄÜÎ»ÖÃ
-            v_bus = Power_flow(X(i, k), Location_Storage, pload_ns(k), P_new, Bus, Branch);
-            V_bus = [V_bus, v_bus];
+        if N_obj == 1
+            % è®¡ç®—ç²’å­ç›®æ ‡å‡½æ•°1ï¼Œå‚¨èƒ½ç»æµæ€§ï¼Œå–æœ€å¤§
+            Storage = X(i, 49);
+            fx(1, i) = fobj(X(i,:), X(i, 49), pload_ns, Price_ns, renewable_ns);   %è®¡ç®—é€‚åº”åº¦å€¼
+        else
+            % è®¡ç®—ç²’å­ç›®æ ‡å‡½æ•°2ï¼ŒèŠ‚ç‚¹ç”µå‹æ³¢åŠ¨å€’æ•°ï¼Œå–æœ€å¤§
+            V_bus = [];   % 24åˆ—
+            for k = 1:24
+                P_new = [EnWT_All(ns, k), EnPV_All(ns, k)];
+                Location_Storage = X(i, 50);   %å‚¨èƒ½ä½ç½®
+                v_bus = Func_power_flow(X(i, k), Location_Storage, pload_ns(k), P_new, Bus, Branch);
+                V_bus = [V_bus, v_bus];
+            end
+            for k = 1:size(V_bus, 1)
+                vbus = V_bus(k, :);
+                temp_fx2(k) = sum(abs(vbus-mean(vbus)));
+            end
+            fx(2, i)  = 1/sum(temp_fx2);   % 1/å¹³å‡èŠ‚ç‚¹ç”µå‹æ³¢åŠ¨ç‡
         end
-        for k = 1:size(V_bus, 1)
-            vbus = V_bus(k, :);
-            temp_fx2(k) = sum(abs(vbus-mean(vbus)));
-        end
-        fx(2, i)  = 1/sum(temp_fx2);   % 1/Æ½¾ù½ÚµãµçÑ¹²¨¶¯ÂÊ
     end
     
-    pBest    = X;                  % ½«³õÊ¼ÖÖÈº×÷ÎªÀúÊ·×îÓÅ
-    fx_pBest = fx;                 % ¼ÇÂ¼³õÊ¼È«¾Ö×îÓÅ½â,Ä¬ÈÏÓÅ»¯×î´óÖµ
+    pBest    = X;                  % å°†åˆå§‹ç§ç¾¤ä½œä¸ºå†å²æœ€ä¼˜
+    fx_pBest = fx;                 % è®°å½•åˆå§‹å…¨å±€æœ€ä¼˜è§£,é»˜è®¤ä¼˜åŒ–æœ€å¤§å€¼
 
-    % ¼ÇÂ¼³õÊ¼È«¾Ö×îÓÅ½â
-    [~, index] = max(sum(fx, 1));   %Ñ°ÕÒÊÊÓ¦¶È×î´óµÄÎ»ÖÃ    
-%     fx_gBest = fx(:, index);   %¼ÇÂ¼ÊÊÓ¦¶ÈÖµºÍÎ»ÖÃ
-    fx_gBest = -inf;   %¼ÇÂ¼ÊÊÓ¦¶ÈÖµºÍÎ»ÖÃ
+    % è®°å½•åˆå§‹å…¨å±€æœ€ä¼˜è§£
+    [~, index] = max(sum(fx, 1));   %å¯»æ‰¾é€‚åº”åº¦æœ€å¤§çš„ä½ç½®    
+%     fx_gBest = fx(:, index);   %è®°å½•é€‚åº”åº¦å€¼å’Œä½ç½®
+    fx_gBest = -inf;   %è®°å½•é€‚åº”åº¦å€¼å’Œä½ç½®
     gBest    = X(index(1),:);
     gBest_index = index(1);
 
-    Xnew     = X;               %ĞÂÎ»ÖÃ
-    fx_New   = fx;   %ĞÂÎ»ÖÃÊÊÓ¦¶ÈÖµ
+    Xnew     = X;               %æ–°ä½ç½®
+    fx_New   = fx;   %æ–°ä½ç½®é€‚åº”åº¦å€¼
     
-    %% ***********************PSOÑ­»·¿ªÊ¼************************* %
+    %% ***********************PSOå¾ªç¯å¼€å§‹************************* %
     for t = 1:Max_Iter
         wait = ceil(100*ns/n_sence)-1 + ceil(100*t/Max_Iter)/100;
-        wait_str = ['·ÂÕæ³¡¾°Ñ­»·Íê³É ', num2str(wait), '%'];
+        wait_str = ['ä»¿çœŸåœºæ™¯å¾ªç¯å®Œæˆ ', num2str(wait), '%'];
         waitbar(wait/100, hwait, wait_str);
-        % ¼ÆËãÖÖÈºÊÊÓ¦¶È
+        % è®¡ç®—ç§ç¾¤é€‚åº”åº¦
         for i = 1:pop
-            w  = w_max-(w_max-w_min)*(t)^2/(Max_Iter)^2;   %¹ßĞÔÈ¨ÖØ¸üĞÂ
-            c1 = (0.5-2.5)*t/Max_Iter+2.5;                 %¼ÓËÙÒò×Óc1¸üĞÂ
-            c2 = (2.5-0.5)*t/Max_Iter+0.5;                 %¼ÓËÙÒò×Óc2¸üĞÂ
+            w  = w_max-(w_max-w_min)*(t)^2/(Max_Iter)^2;   %æƒ¯æ€§æƒé‡æ›´æ–°
+            c1 = (0.5-2.5)*t/Max_Iter+2.5;                 %åŠ é€Ÿå› å­c1æ›´æ–°
+            c2 = (2.5-0.5)*t/Max_Iter+0.5;                 %åŠ é€Ÿå› å­c2æ›´æ–°
             r1 = rand(1,dim);
             r2 = rand(1,dim);
             V(i,:) = w*V(i,:) + c1.*r1.*(pBest(i,:) - X(i,:)) + c2.*r2.*(gBest - X(i,:));
-            V(i,:) = BoundaryCheck(V(i,:),v_max,v_min,dim);   %ËÙ¶È±ß½ç¼ì²é¼°Ô¼Êø
-            Xnew(i,:) = X(i,:) + V(i,:);                      %Î»ÖÃ¸üĞÂ
+            V(i,:) = BoundaryCheck(V(i,:),v_max,v_min,dim);   %é€Ÿåº¦è¾¹ç•Œæ£€æŸ¥åŠçº¦æŸ
+            Xnew(i,:) = X(i,:) + V(i,:);                      %ä½ç½®æ›´æ–°
             
-            % ----------------Á£×Ó±ß½ç¼ì²â¼°Ô¼Êø------------------ %
+            % ----------------ç²’å­è¾¹ç•Œæ£€æµ‹åŠçº¦æŸ------------------ %
             if N_obj == 1
                 for j = 25:49
                     if Xnew(i,j) > X_upper(j)
@@ -410,12 +403,12 @@ for ns = 1:n_sence   % ns = 1:n_sence
                         Xnew(i,j) = X_lower(j);
                     end
                 end
-                Xnew(:, 50)  = round(Xnew(:, 50));               %´¢ÄÜÎ»ÖÃ
+                Xnew(:, 50)  = round(Xnew(:, 50));               %å‚¨èƒ½ä½ç½®
             end  
-            Xnew(:, 49)  = round(Xnew(:, 49)/10000)*10000;   %ÈİÁ¿£¬×îĞ¡³ß¶È10MW
+            Xnew(:, 49)  = round(Xnew(:, 49)/10000)*10000;   %å®¹é‡ï¼Œæœ€å°å°ºåº¦10MW
             
             Storage = Xnew(i, 49);
-            Plim = pload_ns - Xnew(i,25:48);   %´¢ÄÜ·ÅµçÏŞÖÆ£¬±ÜÃâÏòµçÍø·µËÍµç
+            Plim = pload_ns - Xnew(i,25:48);   %å‚¨èƒ½æ”¾ç”µé™åˆ¶ï¼Œé¿å…å‘ç”µç½‘è¿”é€ç”µ
             Xnew(i,:) = ConstraintCheck(Xnew(i,:), Storage, SOC_limt, SOC_0, Plim);
             
             Grid(:, i) = (pload_ns - (Xnew(i,1:24) + Xnew(i,25:48)))'./1000;
@@ -425,31 +418,31 @@ for ns = 1:n_sence   % ns = 1:n_sence
                 Grid_index(1, i) = 1;
             end
             
-            % ¼ÆËãÁ£×ÓÄ¿±êº¯Êı1£¬´¢ÄÜ¾­¼ÃĞÔ£¬È¡×î´ó
-            for i = 1:pop
-                fx_New(1, i) = fobj(X(i,:), Storage, pload_ns, Price_ns, renewable_ns);   %¼ÆËãÊÊÓ¦¶ÈÖµ
-            end
-            % ¼ÆËãÁ£×ÓÄ¿±êº¯Êı2£¬½ÚµãµçÑ¹²¨¶¯µ¹Êı£¬È¡×î´ó
-            if N_obj == 2
-                V_bus = [];   % 24ÁĞ
+            if N_obj == 1
+                % è®¡ç®—ç²’å­ç›®æ ‡å‡½æ•°1ï¼Œå‚¨èƒ½ç»æµæ€§ï¼Œå–æœ€å¤§
+                fx_New(1, i) = fobj(Xnew(i,:), Storage, pload_ns, Price_ns, renewable_ns);   %è®¡ç®—é€‚åº”åº¦å€¼
+            else
+                % è®¡ç®—ç²’å­ç›®æ ‡å‡½æ•°2ï¼ŒèŠ‚ç‚¹ç”µå‹æ³¢åŠ¨å€’æ•°ï¼Œå–æœ€å¤§
+                V_bus = [];   % 24åˆ—
                 for k = 1:24
                     P_new = [EnWT_All(ns, k), EnPV_All(ns, k)];
-                    Location_Storage = X(i, 50);   %´¢ÄÜÎ»ÖÃ
-                    v_bus = Power_flow(X(i, k), Location_Storage, pload_ns(k), P_new, Bus, Branch);
+                    Location_Storage = Xnew(i, 50);   %å‚¨èƒ½ä½ç½®
+                    v_bus = Func_power_flow(Xnew(i, k), Location_Storage, pload_ns(k), P_new, Bus, Branch);
                     V_bus = [V_bus, v_bus];
                 end
                 for k = 1:size(V_bus, 1)
                     vbus = V_bus(k, :);
                     temp_fx2(k) = sum(abs(vbus-mean(vbus)));
                 end
-                fx_New(2, i)  = 1/sum(temp_fx2);   % 1/Æ½¾ù½ÚµãµçÑ¹²¨¶¯ÂÊ
+                fx_New(2, i)  = 1/sum(temp_fx2);   % 1/å¹³å‡èŠ‚ç‚¹ç”µå‹æ³¢åŠ¨ç‡
             end
-             % ¸üĞÂÀúÊ·×îÓÅÖµ£¬Ä¿±êº¯ÊıµÈÈ¨ÖØ
+
+             % æ›´æ–°å†å²æœ€ä¼˜å€¼ï¼Œç›®æ ‡å‡½æ•°ç­‰æƒé‡
             if sum(fx_New(:, i)) >= sum(fx_pBest(:, i))
                 pBest(i,:)     = Xnew(i,:);
                 fx_pBest(:, i) = fx_New(:, i);    
             end
-            % ¸üĞÂÈ«¾Ö×îÓÅÖµ£¬Á½¸öÄ¿±êº¯ÊıµÈÈ¨ÖØ
+            % æ›´æ–°å…¨å±€æœ€ä¼˜å€¼ï¼Œä¸¤ä¸ªç›®æ ‡å‡½æ•°ç­‰æƒé‡
             if sum(fx_New(:, i)) >= sum(fx_gBest)
                 fx_gBest = fx_New(:, i);
                 gBest    = Xnew(i,:);
@@ -459,27 +452,27 @@ for ns = 1:n_sence   % ns = 1:n_sence
 
         X  = Xnew;
         fx = fx_New;
-        % ¼ÇÂ¼µ±Ç°µü´ú×îÓÅÖµºÍ×îÓÅÊÊÓ¦¶ÈÖµ
-        Best_Pos(t,:)   = gBest;       %¼ÇÂ¼È«¾Ö×îÓÅ½â
-        Best_fitness    = fx_gBest;    %¼ÇÂ¼×îÓÅ½âµÄÊÊÓ¦¶ÈÖµ
-        IterCurve(t, :) = fx_gBest;    %¼ÇÂ¼µ±Ç°µü´úµÄ×îÓÅ½âÊÊÓ¦¶ÈÖµ
+        % è®°å½•å½“å‰è¿­ä»£æœ€ä¼˜å€¼å’Œæœ€ä¼˜é€‚åº”åº¦å€¼
+        Best_Pos(t,:)   = gBest;       %è®°å½•å…¨å±€æœ€ä¼˜è§£
+        Best_fitness    = fx_gBest;    %è®°å½•æœ€ä¼˜è§£çš„é€‚åº”åº¦å€¼
+        IterCurve(t, :) = fx_gBest;    %è®°å½•å½“å‰è¿­ä»£çš„æœ€ä¼˜è§£é€‚åº”åº¦å€¼
     end
-    %% -----------------------PSOÑ­»·½áÊø------------------------- %        
+    %% -----------------------PSOå¾ªç¯ç»“æŸ------------------------- %        
     
     Result = [X'./1000; fx];
     Result_All{1, ns} = Result;
     
     temp_gBest = gBest';
-    temp_gBest(1:49) = temp_gBest(1:49)./1000;   %µ¥Î»kW×ªMW
-    Max_Pdelta = max(renewable_ns - pload_ns)/1000;  %·ç¹â³öÁ¦-¸ººÉ×î´ó²îÖµ£¬MW
-    Max_Pstor = max(abs(temp_gBest(1:24)));          %×î´ó³ä·Åµç¹¦ÂÊ£¬MW
-    Rate = sum(temp_gBest(25:48))/sum(renewable_ns./1000);  %ÏûÄÉÂÊ£¬%
-    Elec_rate = sum(temp_gBest(25:48))/sum(pload_ns/1000);  %ĞÂÄÜÔ´ÏûÄÉÕ¼±È£¬%
+    temp_gBest(1:49) = temp_gBest(1:49)./1000;   %å•ä½kWè½¬MW
+    Max_Pdelta = max(renewable_ns - pload_ns)/1000;  %é£å…‰å‡ºåŠ›-è´Ÿè·æœ€å¤§å·®å€¼ï¼ŒMW
+    Max_Pstor = max(abs(temp_gBest(1:24)));          %æœ€å¤§å……æ”¾ç”µåŠŸç‡ï¼ŒMW
+    Rate = sum(temp_gBest(25:48))/sum(renewable_ns./1000);  %æ¶ˆçº³ç‡ï¼Œ%
+    Elec_rate = sum(temp_gBest(25:48))/sum(pload_ns/1000);  %æ–°èƒ½æºæ¶ˆçº³å æ¯”ï¼Œ%
     grid_index = Grid_index(gBest_index);
     Result_Opt(:, ns) = [temp_gBest; ns; Max_Pdelta; Max_Pstor; Rate; Elec_rate; grid_index];
     
 %     temp_grid = pload_ns - (gBest(25:48) + gBest(1:24));
-%     temp_grid = temp_grid./1000;   %µ¥Î»kW×ªMW
+%     temp_grid = temp_grid./1000;   %å•ä½kWè½¬MW
 %     Grid_Opt(:, ns) = temp_grid'; 
     Grid_Opt(:, ns) = Grid(:, gBest_index);
     if N_obj == 1
@@ -503,17 +496,18 @@ Opt_ns = Result_sorted(opt_ns, dim+1);
 Grid_opt = Grid_Opt(:, Opt_ns);
 
 
-%% Êä³ö½á¹û
-P_stor_opt  = Result_Opt(1:24, Opt_ns)';     %´¢ÄÜ24Ğ¡Ê±¹¦ÂÊ£¬kW
-disp('´¢ÄÜÈİÁ¿ÓÅ»¯½á¹û£º¹¦ÂÊMW/ÈİÁ¿MWh')
-max_Pstor = max(abs(P_stor_opt))
-Storage_opt = Result_Opt(49, Opt_ns)
-disp('³öÁ¦-¸ººÉ×î´ó²î£¬·ç¹â³öÁ¦Ğè´æÈİÁ¿£¨MWh£©')
+%% è¾“å‡ºç»“æœ
+P_stor_opt  = Result_Opt(1:24, Opt_ns)';     %å‚¨èƒ½24å°æ—¶åŠŸç‡ï¼ŒkW
+disp('å‚¨èƒ½å®¹é‡ä¼˜åŒ–ç»“æœï¼šåŠŸç‡MW/å®¹é‡MWh')
+max_Pstor = max(abs(P_stor_opt));
+Storage_opt = Result_Opt(49, Opt_ns);
+[max_Pstor, Storage_opt]
+disp('å‡ºåŠ›-è´Ÿè·æœ€å¤§å·®ï¼Œé£å…‰å‡ºåŠ›éœ€å­˜å®¹é‡ï¼ˆMWhï¼‰')
 max_Pdelta = max(Ener_All(Opt_ns, :)/1000 - Load_All(Opt_ns, :)/1000);
 plim = Load_All(Opt_ns, :) - Ener_All(Opt_ns, :);
 Sum_Pchr = -sum(plim(find(plim<0)))/1000;
 [max_Pdelta, Sum_Pchr]
-disp('ÏûÄÉÂÊ£¬ĞÂÄÜÔ´ÏûÄÉÕ¼±È£¨%£©£»ÓÃµçÁ¿£¬·¢µçÁ¿£¬¹ºµçÁ¿£¨ÒÚÇ§ÍßÊ±£©')
+disp('æ¶ˆçº³ç‡ï¼Œæ–°èƒ½æºæ¶ˆçº³å æ¯”ï¼ˆ%ï¼‰ï¼›ç”¨ç”µé‡ï¼Œå‘ç”µé‡ï¼Œè´­ç”µé‡ï¼ˆäº¿åƒç“¦æ—¶ï¼‰')
 rate      = sum(Result_Opt(25:48, Opt_ns))/sum(Ener_All(Opt_ns, :)/1000);
 elec_rate = sum(Result_Opt(25:48, Opt_ns))/sum(Load_All(Opt_ns, :)/1000);
 Elec_generation  = sum(Result_Opt(25:48, Opt_ns)*1000)*330/100000000;
@@ -524,7 +518,7 @@ Elec_buy = Elec_consumption - Elec_generation;
 Result = Result_All{1, Opt_ns};
 
 
-%% ÓÅ»¯½á¹û»­Í¼
+%% ä¼˜åŒ–ç»“æœç”»å›¾
 figure(1)
 stairs(Load_All(Opt_ns, :)/1000,  'Color', 'b', 'LineWidth', 2)
 hold on
@@ -535,63 +529,33 @@ text(24.1, mean(Load_All(Opt_ns, :)/1000), num2str(mean(Load_All(Opt_ns, :))/100
 hold on
 line([0, 24], [mean(Ener_All(Opt_ns, :))/1000, mean(Ener_All(Opt_ns, :))/1000], 'linestyle','--', 'color', 'g')
 text(24.1, mean(Ener_All(Opt_ns, :))/1000, num2str(mean(Ener_All(Opt_ns, :))/1000))
-legend('¸ººÉ', '·ç¹â³öÁ¦')
+legend('è´Ÿè·', 'é£å…‰å‡ºåŠ›')
 xlim([0, 24])
 xlabel('t/h')
 ylabel('MW')
 
 
 figure(2)
-% ×îÓÅÈİÁ¿ÏÂ¶ÔÓ¦µÄÈÕ¹¦ÂÊÇúÏß
+% æœ€ä¼˜å®¹é‡ä¸‹å¯¹åº”çš„æ—¥åŠŸç‡æ›²çº¿
 stairs(P_stor_opt, '-s','Color',[1 0.64706 0], ...
      'MarkerEdgeColor', 'k','MarkerFaceColor','r','LineWidth', 2)
 hold on
 line([0,25], [0,0],'linestyle','--','color','r')
 xlim([0, 24])
 xlabel('t/h')
-ylabel('¹¦ÂÊ/MW')
-title('´¢ÄÜ³ä·Åµç¹¦ÂÊ')
+ylabel('åŠŸç‡/MW')
+title('å‚¨èƒ½å……æ”¾ç”µåŠŸç‡')
+
 
 figure(3)
-if N_obj == 1
-    fitness = Fitness(:, opt_ns)';
-    t = 1:length(fitness);
-    fitness(find(fitness<-1000)) = 0;
-    plot(t, fitness)
-    % ylim([-3, 3])
-    xlabel('µü´ú´ÎÊı')
-    ylabel('ÓÅ»¯Ä¿±ê')
-else if N_obj == 2
-        subplot(211)
-        fitness = Fitness(1:Max_Iter, opt_ns)';
-        t = 1:length(fitness);
-        fitness(find(fitness<-1000)) = 0;
-        plot(t, fitness)
-        % ylim([-3, 3])
-        xlabel('µü´ú´ÎÊı')
-        ylabel('ÓÅ»¯Ä¿±ê1')
-        
-        subplot(212)
-        fitness = Fitness(Max_Iter+1:Max_Iter*2, opt_ns)';
-        t = 1:length(fitness);
-        fitness(find(fitness<-1000)) = 0;
-        plot(t, fitness)
-        % ylim([-3, 3])
-        xlabel('µü´ú´ÎÊı')
-        ylabel('ÓÅ»¯Ä¿±ê2')
-    end
-end
-
-
-figure(4)
 x    = P_stor_opt;
 soc0 = Storage_opt*SOC_0;
 SOC  = [soc0];
 for i = 1:24
-    if x(i) > 0        %·Åµç
-        w_stor(i) = -x(i)*1/0.93;   %x(i)>0£¬·Åµç£¬µç³ØµçÁ¿¼õÉÙw(i),-
+    if x(i) > 0        %æ”¾ç”µ
+        w_stor(i) = -x(i)*1/0.93;   %x(i)>0ï¼Œæ”¾ç”µï¼Œç”µæ± ç”µé‡å‡å°‘w(i),-
     else 
-        w_stor(i) = -x(i)*1*0.93;   %x(i)<0£¬³äµç£¬µç³ØµçÁ¿Ôö¼Ów(i),+
+        w_stor(i) = -x(i)*1*0.93;   %x(i)<0ï¼Œå……ç”µï¼Œç”µæ± ç”µé‡å¢åŠ w(i),+
     end
 end
 for i = 1:24
@@ -605,7 +569,7 @@ title('SOC')
 xlabel('t/h')
 ylabel('SOC')
 
-figure(5)
+figure(4)
 Storage_dis = [];
 Storage_l = Storage_min/1000;
 Storage_h = Storage_max/1000;
@@ -620,44 +584,45 @@ bar(Storage_dis(1,:), Storage_dis(2,:), 'b')
 storage_opt = Storage_dis(1, find(Storage_dis(2,:) == max(Storage_dis(2,:))));
 num_opt     = Storage_dis(2, find(Storage_dis(2,:) == max(Storage_dis(2,:))));
 xlabel('MW')
-ylabel('ÆµÊı')
-title('ÆµÊı·Ö²¼Ö±·½Í¼')
+ylabel('é¢‘æ•°')
+title('é¢‘æ•°åˆ†å¸ƒç›´æ–¹å›¾')
 
-figure(6)
+
+figure(5)
 stairs(Grid_opt, '-s','Color',[1 0.64706 0], ...
      'MarkerEdgeColor', 'k','MarkerFaceColor','r','LineWidth', 2)
 hold on
 line([0,25], [0,0],'linestyle','--','color','r')
 xlim([0, 24])
 xlabel('t/h')
-ylabel('¹¦ÂÊ/MW')
-title('µçÍø¹ºµç')
+ylabel('åŠŸç‡/MW')
+title('ç”µç½‘è´­ç”µ')
 
 
-%% ºóĞøÎªº¯Êı
+%% åç»­ä¸ºå‡½æ•°
 
-%% Á£×ÓÈº³õÊ¼»¯º¯Êı,³õÊ¼»¯Î»ÖÃ»òËÙ¶È
+%% ç²’å­ç¾¤åˆå§‹åŒ–å‡½æ•°,åˆå§‹åŒ–ä½ç½®æˆ–é€Ÿåº¦
 function X = initialization(pop, ub, lb, dim)
-    % pop:ÎªÖÖÈºÊıÁ¿
-    % dim:Ã¿¸öÁ£×ÓÈºµÄÎ¬¶È
-    % ub: ÎªÃ¿¸öÎ¬¶ÈµÄ±äÁ¿ÉÏ±ß½ç£¬Î¬¶ÈÎª[1,dim];
-    % lb: ÎªÃ¿¸öÎ¬¶ÈµÄ±äÁ¿ÏÂ±ß½ç£¬Î¬¶ÈÎª[1,dim];
-    % X:  ÎªÊä³öµÄÖÖÈº£¬Î¬¶È[pop,dim];
-    X = zeros(pop, dim); %ÎªXÊÂÏÈ·ÖÅä¿Õ¼ä
+    % pop:ä¸ºç§ç¾¤æ•°é‡
+    % dim:æ¯ä¸ªç²’å­ç¾¤çš„ç»´åº¦
+    % ub: ä¸ºæ¯ä¸ªç»´åº¦çš„å˜é‡ä¸Šè¾¹ç•Œï¼Œç»´åº¦ä¸º[1,dim];
+    % lb: ä¸ºæ¯ä¸ªç»´åº¦çš„å˜é‡ä¸‹è¾¹ç•Œï¼Œç»´åº¦ä¸º[1,dim];
+    % X:  ä¸ºè¾“å‡ºçš„ç§ç¾¤ï¼Œç»´åº¦[pop,dim];
+    X = zeros(pop, dim); %ä¸ºXäº‹å…ˆåˆ†é…ç©ºé—´
     for i = 1:pop
        for j = 1:dim
-           X(i,j) = (ub(j) - lb(j))*rand() + lb(j);  %Éú³É[lb,ub]Ö®¼äµÄËæ»úÊı
+           X(i,j) = (ub(j) - lb(j))*rand() + lb(j);  %ç”Ÿæˆ[lb,ub]ä¹‹é—´çš„éšæœºæ•°
        end
     end
 end
 
 
-%% ±ß½ç¼ì²éº¯Êı
+%% è¾¹ç•Œæ£€æŸ¥å‡½æ•°
 function [X] = BoundaryCheck(x, ub, lb, dim)
-    % dimÎªÊı¾İµÄÎ¬¶È´óĞ¡
-    % xÎªÊäÈëÊı¾İ£¬Î¬¶ÈÎª[1,dim];
-    % ubÎªÊı¾İÉÏ±ß½ç£¬Î¬¶ÈÎª[1,dim]
-    % lbÎªÊı¾İÏÂ±ß½ç£¬Î¬¶ÈÎª[1,dim]
+    % dimä¸ºæ•°æ®çš„ç»´åº¦å¤§å°
+    % xä¸ºè¾“å…¥æ•°æ®ï¼Œç»´åº¦ä¸º[1,dim];
+    % ubä¸ºæ•°æ®ä¸Šè¾¹ç•Œï¼Œç»´åº¦ä¸º[1,dim]
+    % lbä¸ºæ•°æ®ä¸‹è¾¹ç•Œï¼Œç»´åº¦ä¸º[1,dim]
     for i = 1:dim
         if x(i)>ub(i)
            x(i) = ub(i); 
@@ -669,63 +634,63 @@ function [X] = BoundaryCheck(x, ub, lb, dim)
     X = x;
 end
 
-%% ´¢ÄÜ³ä·Åµç¹¦ÂÊÔ¼ÊøÌõ¼ş
+%% å‚¨èƒ½å……æ”¾ç”µåŠŸç‡çº¦æŸæ¡ä»¶
 function Xnew = ConstraintCheck(X, Storage, SOC_limt, SOC_0, Plim)
-    % dimÎªÊı¾İµÄÎ¬¶È´óĞ¡
-    % xÎªÊäÈëÊı¾İ£¬Î¬¶ÈÎª[1,dim];
-    % SOC_limt£ºSOCÉÏÏÂ½çÔ¼Êø£¬[0.1, 1]
-    % Rate_limt£ºÏûÄÉÂÊÉÏÏÂ½çÔ¼Êø£¬[0.95, 1]
-    x       = X(1:24);   %ĞŞÕıÊ±Ğò¹¦ÂÊ
+    % dimä¸ºæ•°æ®çš„ç»´åº¦å¤§å°
+    % xä¸ºè¾“å…¥æ•°æ®ï¼Œç»´åº¦ä¸º[1,dim];
+    % SOC_limtï¼šSOCä¸Šä¸‹ç•Œçº¦æŸï¼Œ[0.1, 1]
+    % Rate_limtï¼šæ¶ˆçº³ç‡ä¸Šä¸‹ç•Œçº¦æŸï¼Œ[0.95, 1]
+    x       = X(1:24);   %ä¿®æ­£æ—¶åºåŠŸç‡
     SOC     = [];
     SOC_re  = [];
     SOC_min = Storage*SOC_limt(1);
     SOC_max = Storage*SOC_limt(2);
-    eta_chg = 0.927;   % ³äµçĞ§ÂÊ
-    eta_dc  = 0.928;   % ·ÅµçĞ§ÂÊ
+    eta_chg = 0.927;   % å……ç”µæ•ˆç‡
+    eta_dc  = 0.928;   % æ”¾ç”µæ•ˆç‡
     
-    % ³ä·ÅµçÔ¼ÊøË¼Â·£º½«³ä·Åµç¹¦ÂÊ×ª»»µ½µç³ØµÄµçÁ¿±ä»¯w£¨Ôö¼Ó»ò¼õÉÙ£©£»ÈÕÔö¼õºÍÎª0£»
-    % wµÄÀÛ¼Ó¼ÆËãSOC£¬wµÄÕı¸ºÔ¼Êø³ä·ÅµçÊ±¿Ì¡£
+    % å……æ”¾ç”µçº¦æŸæ€è·¯ï¼šå°†å……æ”¾ç”µåŠŸç‡è½¬æ¢åˆ°ç”µæ± çš„ç”µé‡å˜åŒ–wï¼ˆå¢åŠ æˆ–å‡å°‘ï¼‰ï¼›æ—¥å¢å‡å’Œä¸º0ï¼›
+    % wçš„ç´¯åŠ è®¡ç®—SOCï¼Œwçš„æ­£è´Ÿçº¦æŸå……æ”¾ç”µæ—¶åˆ»ã€‚
     
-    % Ô¼ÊøÃ¿ÈÕ³ä·ÅµçÁ¿ÏàµÈ
+    % çº¦æŸæ¯æ—¥å……æ”¾ç”µé‡ç›¸ç­‰
     for i = 1:24
-        if x(i) >= 0        %·Åµç
-            w_stor(i) = -x(i)*1/eta_dc;   %x(i)>0£¬·Åµç£¬µç³ØµçÁ¿¼õÉÙw(i)<0
-        else if x(i) < 0   %³äµç
-            w_stor(i) = -x(i)*1*eta_chg;   %x(i)<0£¬³äµç£¬µç³ØµçÁ¿Ôö¼Ów(i)>0
+        if x(i) >= 0        %æ”¾ç”µ
+            w_stor(i) = -x(i)*1/eta_dc;   %x(i)>0ï¼Œæ”¾ç”µï¼Œç”µæ± ç”µé‡å‡å°‘w(i)<0
+        else if x(i) < 0   %å……ç”µ
+            w_stor(i) = -x(i)*1*eta_chg;   %x(i)<0ï¼Œå……ç”µï¼Œç”µæ± ç”µé‡å¢åŠ w(i)>0
             end
         end
     end
     w_stor = w_stor - (sum(w_stor)-0)/24;
     
-    % buy_price<sell_price²»ÄÜÂôµç,[1,2,3,4,5,6,7,24]Ê±¿Ì²»ÄÜÂòµç£¬xĞèÒªĞ¡ÓÚ0
+    % buy_price<sell_priceä¸èƒ½å–ç”µ,[1,2,3,4,5,6,7,24]æ—¶åˆ»ä¸èƒ½ä¹°ç”µï¼Œxéœ€è¦å°äº0
     for i= 1:7
-        if w_stor(i) <= 0   %·Åµç£¬µçÁ¿¼õÉÙ£¬w(i)<0
+        if w_stor(i) <= 0   %æ”¾ç”µï¼Œç”µé‡å‡å°‘ï¼Œw(i)<0
             temp1 = Storage*0.01*rand()*eta_dc;
             w_stor(8:23) = w_stor(8:23) - (temp1 - w_stor(i))/16;
             w_stor(i) = temp1;
         end
     end
-    if w_stor(24) <= 0     %·Åµç£¬µçÁ¿¼õÉÙ£¬w(i)<0
+    if w_stor(24) <= 0     %æ”¾ç”µï¼Œç”µé‡å‡å°‘ï¼Œw(i)<0
         temp2 = Storage*0.01*rand()*eta_dc;
         w_stor(8:23) = w_stor(8:23) - (temp2 - w_stor(i))/16;
         w_stor(24) = temp2;
     end
     
-    % ³ä·ÅµçËÙÂÊÔ¼Êø£¬²»ÄÜ³¬¹ıStorage*0.5
-    pro_x = zeros(24, 1);     %µçÁ¿±ä»¯wºÍ³ä·Åµç¹¦ÂÊÔ¼ÊøÏÂµÄµçÁ¿±ä»¯±ÈÖµ£¬´óÓÚ1ÔòËÙÂÊ³¬¹ıÔ¼Êø
+    % å……æ”¾ç”µé€Ÿç‡çº¦æŸï¼Œä¸èƒ½è¶…è¿‡Storage*0.5
+    pro_x = zeros(24, 1);     %ç”µé‡å˜åŒ–wå’Œå……æ”¾ç”µåŠŸç‡çº¦æŸä¸‹çš„ç”µé‡å˜åŒ–æ¯”å€¼ï¼Œå¤§äº1åˆ™é€Ÿç‡è¶…è¿‡çº¦æŸ
     for i = 1:24
-        if w_stor(i) <= 0   %·Åµç£¬µçÁ¿¼õÉÙ
+        if w_stor(i) <= 0   %æ”¾ç”µï¼Œç”µé‡å‡å°‘
             pro_x(i) = w_stor(i)/(-Storage*0.5*1/eta_dc);
-        else if w_stor(i) > 0   %³äµç£¬µçÁ¿Ôö¼Ó
+        else if w_stor(i) > 0   %å……ç”µï¼Œç”µé‡å¢åŠ 
                 pro_x(i) = w_stor(i)/(Storage*0.5*1*eta_chg);
             end
         end
     end
-    if max(pro_x) > 1   %´óÓÚ1£¬Ôò³ä·Åµç¹¦ÂÊÓĞ³¬¹ıÔ¼ÊøµÄÊ±¿Ì
+    if max(pro_x) > 1   %å¤§äº1ï¼Œåˆ™å……æ”¾ç”µåŠŸç‡æœ‰è¶…è¿‡çº¦æŸçš„æ—¶åˆ»
         w_stor = w_stor .* (1/max(pro_x));
     end
         
-    % SOCÔ¼Êø£¬min<SOC£¨t£©<max£¬t\in[1:24]
+    % SOCçº¦æŸï¼Œmin<SOCï¼ˆtï¼‰<maxï¼Œt\in[1:24]
     soc0   = Storage*SOC_0;
     for i = 1:24
         soc = soc0 + sum(w_stor(1:i));
@@ -735,40 +700,40 @@ function Xnew = ConstraintCheck(X, Storage, SOC_limt, SOC_0, Plim)
     soc_pro2 = (Storage*(SOC_0-0.1))/(soc0-min(SOC)); 
     w_stor = w_stor .* min(soc_pro1, soc_pro2);
     
-    % ·ÀÖ¹·µËÍµçÔ¼Êø£¬¸ººÉ-ĞÂÄÜÔ´ÎªÏŞÖÆ¹¦ÂÊ£¬´¢ÄÜ·Åµç´óÓÚÏŞÖÆ£¬Ôò»á³öÏÖ·µËÍµç
+    % é˜²æ­¢è¿”é€ç”µçº¦æŸï¼Œè´Ÿè·-æ–°èƒ½æºä¸ºé™åˆ¶åŠŸç‡ï¼Œå‚¨èƒ½æ”¾ç”µå¤§äºé™åˆ¶ï¼Œåˆ™ä¼šå‡ºç°è¿”é€ç”µ
     po_lim  = [];
-    po_char = find(w_stor > 0);   %³äµçÊ±¿Ì
-    po_disc = find(w_stor <= 0);  %·ÅµçÊ±¿Ì
+    po_char = find(w_stor > 0);   %å……ç”µæ—¶åˆ»
+    po_disc = find(w_stor <= 0);  %æ”¾ç”µæ—¶åˆ»
     w_sum   = 0;
     for i = 1:24
-        % ·¢µç´óÓÚ¸ººÉ&´¢ÄÜÔÚ·Åµç£¬»á·µËÍµç£¬±äÎª³äµç
+        % å‘ç”µå¤§äºè´Ÿè·&å‚¨èƒ½åœ¨æ”¾ç”µï¼Œä¼šè¿”é€ç”µï¼Œå˜ä¸ºå……ç”µ
         if Plim(i)<0 & w_stor(i)<0
-            po_lim = [po_lim; i];                  %·µËÍµçÊ±¿Ì
-            delta_w = -Plim(i)*eta_dc - w_stor(i);   %ÈİÁ¿Ôö¼ÓÁ¿>0
-            w_sum = w_sum + abs(delta_w);             %·Åµç×ª³äµç£¬ÈİÁ¿Ôö¼Ó
-            w_stor(i) = -Plim(i)*eta_chg;             %¶à·¢µÄµç¶¼ÓÃÀ´³äµç
-        % ·¢µç´óÓÚ¸ººÉ&´¢ÄÜÔÚ³äµç£¬µ«³äµç¹¦ÂÊ²»×ã£¬»á·µËÍµç£¬Ôö¼Ó³äµç¹¦ÂÊ
+            po_lim = [po_lim; i];                  %è¿”é€ç”µæ—¶åˆ»
+            delta_w = -Plim(i)*eta_dc - w_stor(i);   %å®¹é‡å¢åŠ é‡>0
+            w_sum = w_sum + abs(delta_w);             %æ”¾ç”µè½¬å……ç”µï¼Œå®¹é‡å¢åŠ 
+            w_stor(i) = -Plim(i)*eta_chg;             %å¤šå‘çš„ç”µéƒ½ç”¨æ¥å……ç”µ
+        % å‘ç”µå¤§äºè´Ÿè·&å‚¨èƒ½åœ¨å……ç”µï¼Œä½†å……ç”µåŠŸç‡ä¸è¶³ï¼Œä¼šè¿”é€ç”µï¼Œå¢åŠ å……ç”µåŠŸç‡
         else if Plim(i)<0 & -w_stor(i)/eta_chg > Plim(i)
-                po_lim = [po_lim; i];                  %·µËÍµçÊ±¿Ì
-                delta_w = -Plim(i)*eta_chg - w_stor(i);   %ÈİÁ¿Ôö¼ÓÁ¿>0
-                w_sum = w_sum + abs(delta_w);             %³äµç±ä´ó£¬ÈİÁ¿Ôö¼Ó
-                w_stor(i) = -Plim(i)*eta_chg;             %¶à·¢µÄµç¶¼ÓÃÀ´³äµç
-            % ·¢µçĞ¡ÓÚ¸ººÉ&´¢ÄÜÔÚ·Åµç£¬µ«·Åµç¹¦ÂÊ¹ı´ó£¬»á·µËÍµç£¬¼õÉÙ·Åµç¹¦ÂÊ
+                po_lim = [po_lim; i];                  %è¿”é€ç”µæ—¶åˆ»
+                delta_w = -Plim(i)*eta_chg - w_stor(i);   %å®¹é‡å¢åŠ é‡>0
+                w_sum = w_sum + abs(delta_w);             %å……ç”µå˜å¤§ï¼Œå®¹é‡å¢åŠ 
+                w_stor(i) = -Plim(i)*eta_chg;             %å¤šå‘çš„ç”µéƒ½ç”¨æ¥å……ç”µ
+            % å‘ç”µå°äºè´Ÿè·&å‚¨èƒ½åœ¨æ”¾ç”µï¼Œä½†æ”¾ç”µåŠŸç‡è¿‡å¤§ï¼Œä¼šè¿”é€ç”µï¼Œå‡å°‘æ”¾ç”µåŠŸç‡
             else if Plim(i)>0 & -w_stor(i)*eta_dc > Plim(i)
-                    po_lim = [po_lim; i];                  %·µËÍµçÊ±¿Ì
-                    delta_w = -Plim(i)/eta_dc - w_stor(i);   %ÈİÁ¿Ôö¼ÓÁ¿>0
-                    w_sum = w_sum + abs(delta_w);             %·Åµç¼õĞ¡£¬ÈİÁ¿Ôö¼Ó
-                    w_stor(i) = -Plim(i)/eta_dc;             %¼õÉÙ·Åµç
+                    po_lim = [po_lim; i];                  %è¿”é€ç”µæ—¶åˆ»
+                    delta_w = -Plim(i)/eta_dc - w_stor(i);   %å®¹é‡å¢åŠ é‡>0
+                    w_sum = w_sum + abs(delta_w);             %æ”¾ç”µå‡å°ï¼Œå®¹é‡å¢åŠ 
+                    w_stor(i) = -Plim(i)/eta_dc;             %å‡å°‘æ”¾ç”µ
                 end
             end
         end
     end
-    % ĞŞÕı·µËÍµçÊ±¿Ì¹¦ÂÊ£¬µ¼ÖÂ·µËÍµçÊ±¿ÌÈİÁ¿Ôö¼Ó£¬ÆäËûÊ±¿ÌĞèÒª¼õÉÙ³äµçÁ¿
+    % ä¿®æ­£è¿”é€ç”µæ—¶åˆ»åŠŸç‡ï¼Œå¯¼è‡´è¿”é€ç”µæ—¶åˆ»å®¹é‡å¢åŠ ï¼Œå…¶ä»–æ—¶åˆ»éœ€è¦å‡å°‘å……ç”µé‡
     if length(po_lim) > 0
 %         po1 = find(po_char < po_lim(1));
-%         po2 = po_char(po1);                %³¬ÏŞÇ°µÄ³äµçÊ±¿Ì
+%         po2 = po_char(po1);                %è¶…é™å‰çš„å……ç”µæ—¶åˆ»
         po2 = [1:7];
-        char_sum = sum(w_stor(po2));       %³¬ÏŞÇ°³äµçÁ¿£¬ÕıÊı
+        char_sum = sum(w_stor(po2));       %è¶…é™å‰å……ç”µé‡ï¼Œæ­£æ•°
         delta = abs(char_sum) - abs(w_sum);
         if delta > 0
             pro_lim = delta / abs(char_sum);
@@ -777,7 +742,7 @@ function Xnew = ConstraintCheck(X, Storage, SOC_limt, SOC_0, Plim)
             w_stor(po2) = 0;    %
             po3 = [8:23];
             po4 = setdiff(po3, po_lim);
-            disc = delta / length(po4);  %20250108ĞŞ¸Ä£¬±ÜÃâĞŞÕıºó·Åµç¹ı´ó£¬µ¼ÖÂ·µËÍµç
+            disc = delta / length(po4);  %20250108ä¿®æ”¹ï¼Œé¿å…ä¿®æ­£åæ”¾ç”µè¿‡å¤§ï¼Œå¯¼è‡´è¿”é€ç”µ
             delta_k = 0;
             for i = 1:length(po4)
                 k = po4(i);
@@ -794,16 +759,16 @@ function Xnew = ConstraintCheck(X, Storage, SOC_limt, SOC_0, Plim)
                 SOC_re = [SOC_re; soc];
             end
             X49 = max(SOC_re);
-            X(49) = ceil(X49/10000)*10000;   %ÈİÁ¿£¬×îĞ¡³ß¶È10MW
+            X(49) = ceil(X49/10000)*10000;   %å®¹é‡ï¼Œæœ€å°å°ºåº¦10MW
         end
     end
     
-    % ½«µçÁ¿±ä»¯·´ÍÆ»Ø³ä·Åµç¹¦ÂÊ
+    % å°†ç”µé‡å˜åŒ–åæ¨å›å……æ”¾ç”µåŠŸç‡
     for i = 1:24
-        if w_stor(i) <= 0        %·Åµç£¬¶ÔÓ¦x(i)´óÓÚ0
-            x(i) = -w_stor(i)*eta_dc/1;   %w(i)<0·Åµç£¬·Å³öµçÁ¿³ıÒÔ1Ğ¡Ê±*ÏµÊı0.93²ÅÊÇ·Åµç¹¦ÂÊx(i)
-        else                     %³äµç£¬w(i) >= 0£¬¶ÔÓ¦x(i)Ğ¡ÓÚ0
-            x(i) = -w_stor(i)/1/eta_chg;   %x(i)<0£¬³äµç£¬µç³ØµçÁ¿Ôö¼Ów(i),+
+        if w_stor(i) <= 0        %æ”¾ç”µï¼Œå¯¹åº”x(i)å¤§äº0
+            x(i) = -w_stor(i)*eta_dc/1;   %w(i)<0æ”¾ç”µï¼Œæ”¾å‡ºç”µé‡é™¤ä»¥1å°æ—¶*ç³»æ•°0.93æ‰æ˜¯æ”¾ç”µåŠŸç‡x(i)
+        else                     %å……ç”µï¼Œw(i) >= 0ï¼Œå¯¹åº”x(i)å°äº0
+            x(i) = -w_stor(i)/1/eta_chg;   %x(i)<0ï¼Œå……ç”µï¼Œç”µæ± ç”µé‡å¢åŠ w(i),+
         end
     end
     
@@ -811,41 +776,41 @@ function Xnew = ConstraintCheck(X, Storage, SOC_limt, SOC_0, Plim)
     Xnew    = X;
 end
 
-%% Ä¿±êº¯Êı,ĞŞ¸Äobj1¡¢obj2¼´¿É
-% ×îĞ¡ÅäÖÃ200MW/400MWh
+%% ç›®æ ‡å‡½æ•°,ä¿®æ”¹obj1ã€obj2å³å¯
+% æœ€å°é…ç½®200MW/400MWh
 function Obj = fobj(x, Storage, P_load, Price, Renewable)
-    %¼ÆËãµçÍø½»»¥GridÖµ£¬Grid>0´ÓµçÍøÂòµç£¬Grid<0
-    buy_price   = Price(1, :);   % µçÍøÂòµç¼Û¸ñ£¬µ¥Î»£ºÔª/kWh 
-    sell_price  = Price(2, :);   % ´¢ÄÜÊÛµç¼Û¸ñ£¬µ¥Î»£ºÔª/kWh 
-    lease_price = Price(3, 1);   % ÈİÁ¿×âÁŞÊÕÒæµ¥¼Û£¬108 Ôª/kWh
-    dr_price    = Price(4, 1);   % ĞèÇóÏìÓ¦¼Û¸ñ£¬2 Ôª/kWh
-    model_price = Price(5, 1);   % Æú·çÆú¹â³äµç¼Û¸ñ£¬µ¥Î»£ºÔª/kWh
+    %è®¡ç®—ç”µç½‘äº¤äº’Gridå€¼ï¼ŒGrid>0ä»ç”µç½‘ä¹°ç”µï¼ŒGrid<0
+    buy_price   = Price(1, :);   % ç”µç½‘ä¹°ç”µä»·æ ¼ï¼Œå•ä½ï¼šå…ƒ/kWh 
+    sell_price  = Price(2, :);   % å‚¨èƒ½å”®ç”µä»·æ ¼ï¼Œå•ä½ï¼šå…ƒ/kWh 
+    lease_price = Price(3, 1);   % å®¹é‡ç§Ÿèµæ”¶ç›Šå•ä»·ï¼Œ108 å…ƒ/kWh
+    dr_price    = Price(4, 1);   % éœ€æ±‚å“åº”ä»·æ ¼ï¼Œ2 å…ƒ/kWh
+    model_price = Price(5, 1);   % å¼ƒé£å¼ƒå…‰å……ç”µä»·æ ¼ï¼Œå•ä½ï¼šå…ƒ/kWh
     
     Grid = P_load - (x(25:48) + x(1:24));
-    if min(Grid) >= 0   % ´ÓµçÍøÂòµç,²»·µËÍµçÉÏÍø
-        %¼ÆËãÒ»ÌìµÄ¾»ÊÕÒæ
+    if min(Grid) >= 0   % ä»ç”µç½‘ä¹°ç”µ,ä¸è¿”é€ç”µä¸Šç½‘
+        %è®¡ç®—ä¸€å¤©çš„å‡€æ”¶ç›Š
         netgain = 0;
         for i = 1:24
-            if x(i) < 0   %Îª¸º´ú±í³åµç
+            if x(i) < 0   %ä¸ºè´Ÿä»£è¡¨å†²ç”µ
                 if x(i+24) <= P_load(i)
                     netgain = netgain + x(i)*1*buy_price(i);
                 else
                     delta(i) = Renewable(i) - x(i+24);
                     netgain = netgain - delta(i)*model_price - Grid(i)*buy_price(i);
                 end
-            else  %ÎªÕı´ú±í·Åµç
-                netgain = netgain + x(i)*1*sell_price(i) ;   % x(i)£¨+£©Îª´¢ÄÜ·Å³öµçÁ¿µÄ¹¦ÂÊ£¬*1h*Âôµç¼Û¼´ÎªÂôµçÊÕÒæ
+            else  %ä¸ºæ­£ä»£è¡¨æ”¾ç”µ
+                netgain = netgain + x(i)*1*sell_price(i) ;   % x(i)ï¼ˆ+ï¼‰ä¸ºå‚¨èƒ½æ”¾å‡ºç”µé‡çš„åŠŸç‡ï¼Œ*1h*å–ç”µä»·å³ä¸ºå–ç”µæ”¶ç›Š
             end
         end
                           
-        % ¼ÆËãÒ»ÄêµÄ×ÜÊÕÒæ,Ò»ÄêÔËĞĞ330Ìì£¬ÏµÍ³³É±¾880Ôª/kWh£¬ 1%µÄÄêÔËÎ¬³É±¾£¬-Æú·çÆú¹â³É±¾£¬+ÈİÁ¿×âÁŞÊÕÒæ
-        % ÄşµÂÊ±´ú-´«Í³´¢ÄÜ-¹¹ÍøĞÍ£ºÏµÍ³³É±¾590Ôª/kWh£¬ÔËÎ¬³É±¾12Ôª/kWh£¬¸ü»»³É±¾380Ôª/kWh£¬12Äê¸ü»»£¬
-        Netgain_total = 330*netgain - 590*Storage/25 - 12*Storage + Storage*lease_price - 0*Storage;   %26Äê
+        % è®¡ç®—ä¸€å¹´çš„æ€»æ”¶ç›Š,ä¸€å¹´è¿è¡Œ330å¤©ï¼Œç³»ç»Ÿæˆæœ¬880å…ƒ/kWhï¼Œ 1%çš„å¹´è¿ç»´æˆæœ¬ï¼Œ-å¼ƒé£å¼ƒå…‰æˆæœ¬ï¼Œ+å®¹é‡ç§Ÿèµæ”¶ç›Š
+        % å®å¾·æ—¶ä»£-ä¼ ç»Ÿå‚¨èƒ½-æ„ç½‘å‹ï¼šç³»ç»Ÿæˆæœ¬590å…ƒ/kWhï¼Œè¿ç»´æˆæœ¬12å…ƒ/kWhï¼Œæ›´æ¢æˆæœ¬380å…ƒ/kWhï¼Œ12å¹´æ›´æ¢ï¼Œ
+        Netgain_total = 330*netgain - 590*Storage/25 - 12*Storage + Storage*lease_price - 0*Storage;   %26å¹´
 %         Netgain_total = 330*netgain - 590*Storage/25 - 12*Storage + Storage*lease_price - 380/12*Storage;
 
         Obj = Netgain_total/(590*Storage/25);     
     else
-        Obj = -10000;   %¸Ã×éÁ£×Ó»á·µËÍµç£¬½«ÊÕÒæ½µµ½¼«´ó£¬±£Ö¤¸Ã×éÁ£×Ó½á¹û²»»á±»Ñ¡ÖĞ
+        Obj = -10000;   %è¯¥ç»„ç²’å­ä¼šè¿”é€ç”µï¼Œå°†æ”¶ç›Šé™åˆ°æå¤§ï¼Œä¿è¯è¯¥ç»„ç²’å­ç»“æœä¸ä¼šè¢«é€‰ä¸­
     end     
 end
 
